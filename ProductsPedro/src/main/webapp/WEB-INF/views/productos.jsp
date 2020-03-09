@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<title>Mantenimiento Peliculas</title>
+<title>Productos</title>
 </head>
 <body>
 	
@@ -19,6 +19,7 @@
 				</form>
 			</div>
 			<h1 style="text-align:center" class="col-md-6">Productos</h1>
+			<a href="/" style="float: left;"><button type="button" class="btn btn-outline-danger my-2 my-sm-0">Cerrar Sesión</button></a>
         </nav>
 	
 	<div style="text-align:center">
@@ -43,20 +44,18 @@
 					<tbody>
 						<c:forEach items="${listaProd}" var="item">
 								<tr>
-									<td>${item.codProd}</td>
-									<td>${item.nombre}</td>
-									<td>${item.descripcion}</td>
-									<td>${item.peso}</td>
-									<td>${item.stock}</td>
-									<td>${item.categoria}</td>
-									<form action="productosC" method="POST" accept-charset="UTF-8">
-										<input type="hidden" name="codProd" value="${item.codProd}">
-										<input type="hidden" name="codCat" value="${codCat}">
-										<input type="hidden" name="nombre" value="${item.nombre}">
-										<input type="hidden" name="descripcion" value="${item.descripcion}">
-										<input type="hidden" name="peso" value="${item.peso}">
-										<td><input type="number" name="unidades" min=1 max="${item.stock}"></td>
-										<td><input type="submit" class="btn btn-primary" value="Comprar"></td>
+									<form action="comprar" method="POST">
+										<input type="hidden" name="correo" value="${correo}">
+										<input type="hidden" name="clave" value="${clave}">
+										<input type="hidden" readonly="readonly" name="codCat" value="${codCat}">
+										<td><input type="text" readonly="readonly" name="codProd" value="${item.codProd}"></td>
+										<td><input type="text" readonly="readonly" name="nombre" value="${item.nombre}"></td>
+										<td><input type="text" readonly="readonly" name="descripcion" value="${item.descripcion}"></td>
+										<td><input type="text" readonly="readonly" name="peso" value="${item.peso}"></td>
+										<td><input type="text" readonly="readonly" name="stock" value="${item.stock}"></td>
+										<td><input type="text" readonly="readonly" name="categoria" value="${item.categoria}"></td>
+										<td><input type="number" name="unidades" min=1 max="${item.stock}" required></td>
+										<td><button class="btn btn-secondary" value="Comprar">Comprar</button></td>
 									</form>
 								</tr>							
 						</c:forEach>
@@ -64,8 +63,11 @@
 				</table>
 			</div>
 		</div>
-		
-		<a href="/carrito"><button type="button" class="btn btn-primary">Ver Carrito</button></a>
+		<form action="carrito" method="POST">
+			<input type="hidden" name="correo" value="${correo}">
+			<input type="hidden" name="clave" value="${clave}">
+			<button class="btn btn-primary">Ver Carrito</button>
+		</form>
 
 	</div>
 
